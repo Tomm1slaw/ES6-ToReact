@@ -2,6 +2,7 @@ body {
 	background-image: url("https://cdn.stocksnap.io/img-thumbs/280h/T8JB5N55MP.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
+	height: 100vh;
 }
 .controls {
 	display: flex;
@@ -10,9 +11,31 @@ body {
 }
 .button {
 	text-decoration: none;
+	color: blue;
 }
 .stopwatch {
 	display: flex;
 	justify-content: center;
 	font-size: 30px;
+}
+.results {
+	color: red;
+    display: flex;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+}
+
+.results li {
+	padding: 5px;
+}
+
+@media (max-width: 600px) {
+	.controls {
+		flex-direction: column;
+		align-items: center;
+	}
+	.button {
+		padding: 10px;
+	}
 }

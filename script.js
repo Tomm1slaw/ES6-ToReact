@@ -2,6 +2,7 @@ class Stopwatch extends React.Component{
   constructor(display) {
     super(display);
     this.state = {
+      resultList: [],
       running: false,
       times: {
         minutes: 0,
@@ -56,18 +57,34 @@ class Stopwatch extends React.Component{
     clearInterval(this.watch);
   }
 
+  save() {
+
+        let newTime = this.format(this.state.times),
+        resultList = [...this.state.resultList, {'time': newTime, 'id': new Date().getTime()}];
+        this.setState({resultList});
+    }
+
+  clearSave() {
+        this.setState({
+            resultList: []
+        });
+    }
+
   render() {
     return (
-        <div>
-        <div className = {'controls'}>
-          <a href = '#' className = {'button'} onClick ={this.start.bind(this)}>Start</a>
-          <a href = '#' className = {'button'} onClick ={this.stop.bind(this)}>Stop</a>
-          <a href = '#' className = {'button'} onClick ={this.reset.bind(this)}>Reset</a>
-        </div>  
-        <div className = {'stopwatch'}>{this.format()}</div>
-        <ul className = {'results'}>
-        </ul>
-        </div>
+      <div>
+        <div className = 'controls'>
+          <a href = '#' className = 'button' onClick ={this.start.bind(this)}>Start</a>
+          <a href = '#' className = 'button' onClick ={this.stop.bind(this)}>Stop</a>
+          <a href = '#' className = 'button' onClick ={this.reset.bind(this)}>Reset</a>
+          <a href = '#' className = 'button' onClick ={this.save.bind(this)}>Lap</a>
+          <a href = '#' className = 'button' onClick ={this.clearSave.bind(this)}>ClearLaps</a>
+        </div> 
+        <div className = 'stopwatch'>{this.format(this.state.times)}</div>
+        <ol className = 'results'>
+          {this.state.resultList.map(itemList => <li key={itemList.id}>{itemList.time}</li>)}
+        </ol>
+      </div>
     );
   }
 }
